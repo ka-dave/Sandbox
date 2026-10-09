@@ -54,6 +54,14 @@ void * mimic_load(void* arg) {
             continue;
         }
 
+        // Implement Total Ordering of Locks to avoid deadlocks
+
+        if (rec2 > rec1) {
+            int tem = rec1;
+            rec1 = rec2;
+            rec2 = tem;
+        }
+
         acquireLock(tname, rec1);
         acquireLock(tname, rec2);
 
